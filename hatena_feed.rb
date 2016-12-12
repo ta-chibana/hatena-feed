@@ -5,45 +5,47 @@ require 'net/http'
 require 'rss'
 
 ICON = '📡'.freeze
+
+# Please uncommentout the genre you like
 FEED_URLS = [
-  # 総合
-  'http://feeds.feedburner.com/hatena/b/hotentry',
-  'http://b.hatena.ne.jp/entrylist.rss',
+  # # entry
+  # 'http://feeds.feedburner.com/hatena/b/hotentry',
+  # 'http://b.hatena.ne.jp/entrylist.rss',
 
-  # 世の中
-  'http://b.hatena.ne.jp/hotentry/social.rss',
-  'http://b.hatena.ne.jp/entrylist/social.rss',
+  # # social
+  # 'http://b.hatena.ne.jp/hotentry/social.rss',
+  # 'http://b.hatena.ne.jp/entrylist/social.rss',
 
-  # 政治と経済
-  'http://b.hatena.ne.jp/hotentry/economics.rss',
-  'http://b.hatena.ne.jp/entrylist/economics.rss',
+  # # economics
+  # 'http://b.hatena.ne.jp/hotentry/economics.rss',
+  # 'http://b.hatena.ne.jp/entrylist/economics.rss',
 
-  # 暮らし
-  'http://b.hatena.ne.jp/hotentry/life.rss',
-  'http://b.hatena.ne.jp/entrylist/life.rss',
+  # # life
+  # 'http://b.hatena.ne.jp/hotentry/life.rss',
+  # 'http://b.hatena.ne.jp/entrylist/life.rss',
 
-  # 学び
-  'http://b.hatena.ne.jp/hotentry/knowledge.rss',
-  'http://b.hatena.ne.jp/entrylist/knowledge.rss',
+  # # knowledge
+  # 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
+  # 'http://b.hatena.ne.jp/entrylist/knowledge.rss',
 
-  # テクノロジー
-  'http://b.hatena.ne.jp/hotentry/it.rss',
-  'http://b.hatena.ne.jp/entrylist/it.rss',
+  # # it
+  # 'http://b.hatena.ne.jp/hotentry/it.rss',
+  # 'http://b.hatena.ne.jp/entrylist/it.rss',
 
-  # エンタメ
-  'http://b.hatena.ne.jp/hotentry/entertainment.rss',
-  'http://b.hatena.ne.jp/entrylist/entertainment.rss',
+  # # entertainment
+  # 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
+  # 'http://b.hatena.ne.jp/entrylist/entertainment.rss',
 
-  # アニメとゲーム
-  'http://b.hatena.ne.jp/hotentry/game.rss',
-  'http://b.hatena.ne.jp/entrylist/game.rss',
+  # # game
+  # 'http://b.hatena.ne.jp/hotentry/game.rss',
+  # 'http://b.hatena.ne.jp/entrylist/game.rss',
 
-  # おもしろ
-  'http://b.hatena.ne.jp/hotentry/fun.rss',
-  'http://b.hatena.ne.jp/entrylist/fun.rss',
+  # # fun
+  # 'http://b.hatena.ne.jp/hotentry/fun.rss',
+  # 'http://b.hatena.ne.jp/entrylist/fun.rss',
 
-  # 動画
-  'http://feeds.feedburner.com/hatena/b/video',
+  # # video
+  # 'http://feeds.feedburner.com/hatena/b/video',
 ].freeze
 
 def feeds
@@ -69,9 +71,10 @@ def fetch_feed(uri)
 end
 
 def print(feed)
-  puts "#{feed[:header][:name]}|href=#{feed[:header][:url]}"
+  puts "#{feed[:header][:name]} | href=#{feed[:header][:url]}"
   feed[:items].each do |item|
-    puts "--#{item.title} | href=#{item.link}"
+    title = item.title.gsub('|', '/')
+    puts "--#{title} | href=#{item.link}"
   end
 end
 
@@ -81,4 +84,6 @@ end
 puts ICON
 puts '---'
 feeds.each { |feed| print(feed) }
+puts '---'
+puts 'reload | color=red refresh=true'
 
